@@ -1,0 +1,15 @@
+ROIid;ROIabbr;ROIname;ROIcolor
+1;lPulvinar;left pulvinar;255 0 0
+2;lAnterior;left anterior;0 255 0
+3;lMedio_Dorsal;left medio-dorsal;255 255 0
+4;lVentral_Latero_Dorsal;left ventral latero-dorsal;255 123 0
+5;lCentral_Lateral-Lateral_Posterior-Medial_Pulvinar;left central lateral, lateral posteror, medial pulvinar;0 255 255
+6;lVentral_Anterior;left ventral anterior;255 0 255
+7;lVentral_Latero_Ventral;left ventral latero-ventral;0 0 255
+8;rPulvinar;right pulvinar;255 0 0
+9;rAnterior;right anterior;0 255 0
+10;rMedio_Dorsal;right medio-dorsal;255 255 0
+11;rVentral_Latero_Dorsal;right ventral latero-dorsal;255 123 0
+12;rCentral_Lateral-Lateral_Posterior-Medial_Pulvinar;right central lateral, lateral posteror, medial pulvinar;0 255 255
+13;rVentral_Anterior;right ventral anterior;255 0 255
+14;rVentral_Latero_Ventral;right ventral latero-ventral;0 0 255

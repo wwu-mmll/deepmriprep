@@ -1,0 +1,96 @@
+ROIid;ROIname;Vgm;Vwm;Vcsf;ROIcolor
+1;TL hippocampus R;1;0;0;0 204 0
+2;TL hippocampus L;1;0;0;0 204 0
+3;TL amygdala R;1;0;0;255 0 0
+4;TL amygdala L;1;0;0;255 0 0
+5;TL anterior temporal lobe medial part R;1;1;0;102 102 255
+6;TL anterior temporal lobe medial part L;1;1;0;102 102 255
+7;TL anterior temporal lobe lateral part R;1;1;0;255 177 100
+8;TL anterior temporal lobe lateral part L;1;1;0;255 177 100
+9;TL parahippocampal and ambient gyrus R;1;1;0;0 255 255
+10;TL parahippocampal and ambient gyrus L;1;1;0;0 255 255
+11;TL superior temporal gyrus middle part R;1;1;0;255 0 255
+12;TL superior temporal gyrus middle part L;1;1;0;255 0 255
+13;TL middle and inferior temporal gyrus R;1;1;0;102 0 0
+14;TL middle and inferior temporal gyrus L;1;1;0;102 0 0
+15;TL fusiform gyrus R;1;1;0;0 102 0
+16;TL fusiform gyrus L;1;1;0;0 102 0
+17;cerebellum R;1;1;0;255 215 0
+18;cerebellum L;1;1;0;255 215 0
+19;brainstem excluding substantia nigra;0;1;0;0 204 0
+20;insula posterior long gyrus L;1;1;0;0 204 0
+21;insula posterior long gyrus R;1;1;0;0 204 0
+22;OL lateral remainder occipital lobe L;1;1;0;255 0 0
+23;OL lateral remainder occipital lobe R;1;1;0;255 0 0
+24;CG anterior cingulate gyrus L;1;1;0;102 102 255
+25;CG anterior cingulate gyrus R;1;1;0;102 102 255
+26;CG posterior cingulate gyrus L;1;1;0;255 177 100
+27;CG posterior cingulate gyrus R;1;1;0;255 177 100
+28;FL middle frontal gyrus L;1;1;0;0 255 255
+29;FL middle frontal gyrus R;1;1;0;0 255 255
+30;TL posterior temporal lobe L;1;1;0;255 0 255
+31;TL posterior temporal lobe R;1;1;0;255 0 255
+32;PL angular gyrus L;1;1;0;102 0 0
+33;PL angular gyrus R;1;1;0;102 0 0
+34;caudate nucleus L;1;0;0;0 102 0
+35;caudate nucleus R;1;0;0;0 102 0
+36;nucleus accumbens L;1;0;0;255 215 0
+37;nucleus accumbens R;1;0;0;255 215 0
+38;putamen L;1;0;0;0 204 0
+39;putamen R;1;0;0;0 204 0
+40;thalamus L;1;0;0;255 0 0
+41;thalamus R;1;0;0;255 0 0
+42;pallidum L;1;0;0;102 102 255
+43;pallidum R;1;0;0;102 102 255
+44;corpus callosum;0;1;0;255 177 100
+45;Lateral ventricle excluding temporal horn R;0;0;1;255 177 100
+46;Lateral ventricle excluding temporal horn L;0;0;1;0 255 255
+47;Lateral ventricle temporal horn R;0;0;1;0 255 255
+48;Lateral ventricle temporal horn L;0;0;1;255 0 255
+49;Third ventricle;0;0;1;255 0 255
+50;FL precentral gyrus L;1;1;0;102 0 0
+51;FL precentral gyrus R;1;1;0;102 0 0
+52;FL straight gyrus L;1;1;0;0 102 0
+53;FL straight gyrus R;1;1;0;0 102 0
+54;FL anterior orbital gyrus L;1;1;0;255 215 0
+55;FL anterior orbital gyrus R;1;1;0;255 215 0
+56;FL inferior frontal gyrus L;1;1;0;0 204 0
+57;FL inferior frontal gyrus R;1;1;0;0 204 0
+58;FL superior frontal gyrus L;1;1;0;255 0 0
+59;FL superior frontal gyrus R;1;1;0;255 0 0
+60;PL postcentral gyrus L;1;1;0;102 102 255
+61;PL postcentral gyrus R;1;1;0;102 102 255
+62;PL superior parietal gyrus L;1;1;0;255 177 100
+63;PL superior parietal gyrus R;1;1;0;255 177 100
+64;OL lingual gyrus L;1;1;0;0 255 255
+65;OL lingual gyrus R;1;1;0;0 255 255
+66;OL cuneus L;1;1;0;255 0 255
+67;OL cuneus R;1;1;0;255 0 255
+68;FL medial orbital gyrus L;1;1;0;102 0 0
+69;FL medial orbital gyrus R;1;1;0;102 0 0
+70;FL lateral orbital gyrus L;1;1;0;0 102 0
+71;FL lateral orbital gyrus R;1;1;0;0 102 0
+72;FL posterior orbital gyrus L;1;1;0;255 215 0
+73;FL posterior orbital gyrus R;1;1;0;255 215 0
+74;substantia nigra L;0;1;0;0 204 0
+75;substantia nigra R;0;1;0;0 204 0
+76;FL subgenual frontal cortex L;1;1;0;255 0 0
+77;FL subgenual frontal cortex R;1;1;0;255 0 0
+78;FL subcallosal area L;1;1;0;102 102 255
+79;FL subcallosal area R;1;1;0;102 102 255
+80;FL pre-subgenual frontal cortex L;1;1;0;255 177 100
+81;FL pre-subgenual frontal cortex R;1;1;0;255 177 100
+82;TL superior temporal gyrus anterior part L;1;1;0;0 255 255
+83;TL superior temporal gyrus anterior part R;1;1;0;0 255 255
+84;PL supramarginal gyrus L;1;1;0;255 0 255
+85;PL supramarginal gyrus R;1;1;0;255 0 255
+86;insula anterior short gyrus L;1;1;0;102 0 0
+87;insula anterior short gyrus R;1;1;0;102 0 0
+88;insula middle short gyrus L;1;1;0;0 102 0
+89;insula middle short gyrus R;1;1;0;0 102 0
+90;insula posterior short gyrus L;1;1;0;255 215 0
+91;insula posterior short gyrus R;1;1;0;255 215 0
+92;insula anterior inferior cortex L;1;1;0;0 204 0
+93;insula anterior inferior cortex R;1;1;0;0 204 0
+94;insula anterior long gyrus L;1;1;0;255 0 0
+95;insula anterior long gyrus R;1;1;0;255 0 0

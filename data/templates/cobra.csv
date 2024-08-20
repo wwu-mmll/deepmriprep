@@ -1,0 +1,53 @@
+ROIid;ROIabbr;ROIname;Vgm;Vwm;Vcsf
+1;lStriatum;Left Striatum;1;0;0
+2;lGloPal;Left Globus Pallidus;1;0;0
+3;lTha;Left Thalamus ;1;0;0
+11;lAntCerebLI_II;Left Anterior Cerebellar Lobule I-II;1;1;0
+12;lAntCerebLIII;Left Anterior Cerebellar Lobule III;1;1;0
+13;lAntCerebLIV;Left Anterior Cerebellar Lobule IV;1;1;0
+14;lAntCerebLV;Left Anterior Cerebellar Lobule V;1;1;0
+15;lSupPostCerebLVI;Left Superior Posterior Cerebellar Lobule VI;1;1;0
+16;lSupPostCerebCI;Left Superior Posterior Cerebellar Lobule Crus I;1;1;0
+17;lSupPostCerebCII;Left Superior Posterior Cerebellar Lobule Crus II;1;1;0
+18;lSupPostCerebLVIIB;Left Superior Posterior Cerebellar Lobule VIIB;1;1;0
+19;lInfPostCerebLVIIIA;Left Inferior Posterior Cerebellar Lobule VIIIA;1;1;0
+20;lInfPostCerebLVIIIB;Left Inferior Posterior Cerebellar Lobule VIIIB;1;1;0
+21;lInfPostCerebLIX;Left Inferior Posterior Cerebellar Lobule IX;1;1;0
+22;lInfPostCerebLX;Left Inferior Posterior Cerebellar Lobule X;1;1;0
+23;lAntCerebWM;Left Cerebellar White Matter;0;1;0
+26;lAmy;Left Amygdala;1;0;0
+31;lHCA1;Left Hippocampus CA1;1;1;0
+32;lSub;Left Subiculum;1;1;0
+33;lFor;Left Fornix;0;1;0
+34;lCA4;Left CA4/Dentate Gyrus;1;1;0
+35;lCA2_3;Left CA2/CA3;1;1;0
+36;lStratum;Left Stratum Radiatum/Lacunosum/Moleculare;1;1;0
+37;lFimbra;Left Fimbria;0;1;0
+38;lMamBody;Left Mammillary body;0;1;0
+39;lAlveus;Left Alveus;0;1;0
+101;rStriatum;Right Striatum;1;0;0
+102;rGloPal;Right Globus Pallidus;1;0;0
+103;rTha;Right Thalamus ;1;0;0
+111;rAntCerebLI_II;Right Anterior Cerebellar Lobule I-II;1;1;0
+112;rAntCerebLIII;Right Anterior Cerebellar Lobule III;1;1;0
+113;rAntCerebLIV;Right Anterior Cerebellar Lobule IV;1;1;0
+114;rAntCerebLV;Right Anterior Cerebellar Lobule V;1;1;0
+115;rSupPostCerebLVI;Right Superior Posterior Cerebellar Lobule VI;1;1;0
+116;rSupPostCerebCI;Right Superior Posterior Cerebellar Lobule Crus I;1;1;0
+117;rSupPostCerebCII;Right Superior Posterior Cerebellar Lobule Crus II;1;1;0
+118;rSupPostCerebLVIIB;Right Superior Posterior Cerebellar Lobule VIIB;1;1;0
+119;rInfPostCerebLVIIIA;Right Inferior Posterior Cerebellar Lobule VIIIA;1;1;0
+120;rInfPostCerebLVIIIB;Right Inferior Posterior Cerebellar Lobule VIIIB;1;1;0
+121;rInfPostCerebLIX;Right Inferior Posterior Cerebellar Lobule IX;1;1;0
+122;rInfPostCerebLX;Right Inferior Posterior Cerebellar Lobule X;1;1;0
+123;rAntCerebWM;Right Cerebellar White Matter;0;1;0
+126;rAmy;Right Amygdala;1;0;0
+131;rHCA1;Right Hippocampus CA1;1;1;0
+132;rSub;Right Subiculum;1;1;0
+133;rFor;Right Fornix;0;1;0
+134;rCA4;Right CA4/Dentate Gyrus;1;1;0
+135;rCA2_3;Right CA2/CA3;1;1;0
+136;rStratum;Right Stratum Radiatum/Lacunosum/Moleculare;1;1;0
+137;rFimbra;Right Fimbria;0;1;0
+138;rMamBody;Right Mammillary body;0;1;0
+139;rAlveus;Right Alveus;0;1;0

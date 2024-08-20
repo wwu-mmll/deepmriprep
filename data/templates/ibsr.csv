@@ -1,0 +1,33 @@
+ROIid;ROIabbr;ROIname;Vgm;Vwm;Vcsf
+2;lCbrWM;Left Cerebral White Matter;0;1;0
+3;lCbrGM;Left Cerebral Cortex;1;0;0
+4;lLatVen;Left Lateral Ventricle;0;0;1
+5;lInfLatVen;Left Inf Lat Vent;0;0;1
+7;lCbeWM;Left Cerebellum White Matter;0;1;0
+8;lCbeGM;Left Cerebellum Cortex;1;0;0
+10;lThaPro;Left Thalamus Proper;1;0;0
+11;lCau;Left Caudate;1;0;0
+12;lPut;Left Putamen;1;0;0
+13;lPal;Left Pallidum;1;0;0
+14;b3thVen;Bothside 3rd Ventricle;0;0;1
+15;b4thVen;Bothside 4th Ventricle;0;0;1
+16;bBst;Bothside Brain Stem;0;1;0
+17;lHip;Left Hippocampus;1;0;0
+18;lAmy;Left Amygdala;1;0;0
+24;bCSF;Bothside CSF;0;0;1
+26;lAcc;Left Accumbens area;1;0;0
+28;lVenDC;Left Ventral Diencephalon;1;1;0
+41;rCbrWM;Right Cerebral White Matter;0;1;0
+42;rCbrGM;Right Cerebral Cortex;1;0;0
+43;rLatVen;Right Lateral Ventricle;0;0;1
+44;rInfLatVen;Right Inf Lat Vent;0;0;1
+46;rCbeWM;Right Cerebellum White Matter;0;1;0
+47;rCbeGM;Right Cerebellum Cortex;1;0;0
+49;rThaPro;Right Thalamus Proper;1;0;0
+50;rCau;Right Caudate;1;0;0
+51;rPut;Right Putamen;1;0;0
+52;rPal;Right Pallidum;1;0;0
+53;rHip;Right Hippocampus;1;0;0
+54;rAmy;Right Amygdala;1;0;0
+58;rAcc;Right Accumbens area;1;0;0
+60;rVenDC;Right Ventral Diencephalon;1;1;0

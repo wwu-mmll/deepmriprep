@@ -1,0 +1,128 @@
+;ROIid;ROIabbr;ROIname;Vgm;Vwm;Vcsf
+0;1;lSupParLo;Left Superior Parietal Lobule;1;0;0
+1;2;rSupParLo;Right Superior Parietal Lobule;1;0;0
+2;3;lCinGy;Left Cingulate Gyrus;1;0;0
+3;4;rCinGy;Right Cingulate Gyrus;1;0;0
+4;5;lSupFroGy;Left Superior Frontal Gyrus;1;0;0
+5;6;rSupFroGy;Right Superior Frontal Gyrus;1;0;0
+6;7;lMidFroGy;Left Middle Frontal Gyrus;1;0;0
+7;8;rMidFroGy;Right Middle Frontal Gyrus;1;0;0
+8;9;lFroGy;Left Frontal Gyrus;1;0;0
+9;10;rFroGy;Right Frontal Gyrus;1;0;0
+10;11;lPrcGy;Left Precentral Gyrus;1;0;0
+11;12;rPrcGy;Right Precentral Gyrus;1;0;0
+12;13;lPoCGy;Left Postcentral Gyrus;1;0;0
+13;14;rPoCGy;Right Postcentral Gyrus;1;0;0
+14;15;lAngGy;Left Angular Gyrus;1;0;0
+15;16;rAngGy;Right Angular Gyrus;1;0;0
+16;17;lCun;Left Cuneus;1;0;0
+17;18;rCun;Right Cuneus;1;0;0
+18;19;lLinGy;Left Lingual Gyrus;1;0;0
+19;20;rLinGy;Right Lingual Gyrus;1;0;0
+20;21;lFusGy;Left Fusiform Gyrus;1;0;0
+21;22;rFusGy;Right Fusiform Gyrus;1;0;0
+22;23;lParHipGy;Left Parahippocampus Gyrus;1;0;0
+23;24;rParHipGy;Right Parahippocampus Gyrus;1;0;0
+24;25;lSupOccGy;Left Superior Occipital Gyrus;1;0;0
+25;26;rSupOccGy;Right Superior Occipital Gyrus;1;0;0
+26;27;lOccGy;Left Occipital Gyrus;1;0;0
+27;28;rOccGy;Right Occipital Gyrus;1;0;0
+28;29;lMidOccGy;Left Middle Occipital Gyrus;1;0;0
+29;30;rMidOccGy;Right Middle Occipital Gyrus;1;0;0
+30;31;lEnt;Left Entorhinal Area;1;0;0
+31;32;rEnt;Right Entorhinal Area;1;0;0
+32;33;lSupTemGy;Left Superior Temporal Gyrus;1;0;0
+33;34;rSupTemGy;Right Superior Temporal Gyrus;1;0;0
+34;35;lTemGy;Left Temporal Gyrus;1;0;0
+35;36;rTemGy;Right Temporal Gyrus;1;0;0
+36;37;lMidTemGy;Left Middle Temporal Gyrus;1;0;0
+37;38;rMidTemGy;Right Middle Temporal Gyrus;1;0;0
+38;39;lLatOrbGy;Left Lateral Orbital Gyrus;1;0;0
+39;40;rLatOrbGy;Right Lateral Orbital Gyrus;1;0;0
+40;41;lMidOrbGy;Left Middle Orbital Gyrus;1;0;0
+41;42;rMidOrbGy;Right Middle Orbital Gyrus;1;0;0
+42;43;lSupMarGy;Left Supramarginal Gyrus;1;0;0
+43;44;rSupMarGy;Right Supramarginal Gyrus;1;0;0
+44;45;lRecGy;Left Gyrus Rectus;1;0;0
+45;46;rRecGy;Right Gyrus Rectus;1;0;0
+46;47;lIns;Left Insula;1;0;0
+47;48;rIns;Right Insula;1;0;0
+48;49;lAmy;Left Amygdala;1;0;0
+49;50;rAmy;Right Amygdala;1;0;0
+50;51;lHip;Left Hippocampus;1;0;0
+51;52;rHip;Right Hippocampus;1;0;0
+52;53;lCbe;Left Cerebellum;1;1;0
+53;54;rCbe;Right Cerebellum;1;1;0
+54;55;lCST;Left corticospinal_tract;0;1;0
+55;56;rCST;Right corticospinal_tract;0;1;0
+56;57;lCbePed;Left Cerebellar Peduncle;0;1;0
+57;58;rCbePed;Right Cerebellar Peduncle;0;1;0
+59;60;rMedLem;Right Medial Lemniscus;0;1;0
+60;61;lSupCbePed;Left Superior Cerebellar Peduncle;0;1;0
+61;62;rSupCbePed;Right Superior Cerebellar Peduncle;0;1;0
+62;63;lCbrPed;Left Cerebral Peduncle;0;1;0
+63;64;rCbrPed;Right Cerebral Peduncle;0;1;0
+64;65;lAntCapLIC;Left Anterior Capsule Limb of Internal;0;1;0
+65;66;rAntCapLIC;Right Anterior Capsule Limb of Internal;0;1;0
+66;67;lPosCapLIC;Left Posterior Capsule Limb of Internal;0;1;0
+67;68;rPosCapLIC;Right Posterior Capsule Limb of Internal;0;1;0
+68;69;lPosThR;Left Posterior Thalamic Radiation;0;1;0
+69;70;rPosThR;Right Posterior Thalamic Radiation;0;1;0
+70;71;lAntCR;Left Anterior Corona Radiata;0;1;0
+71;72;rAntCR;Right Anterior Corona Radiata;0;1;0
+72;73;lSupCR;Left Superior Corona Radiata;0;1;0
+73;74;rSupCR;Right Superior Corona Radiata;0;1;0
+74;75;lPosCR;Left Posterior Corona Radiata;0;1;0
+75;76;rPosCR;Right Posterior Corona Radiata;0;1;0
+76;77;lCin+CinGy;Left Cingulate and Cingulum Gyrus;0;1;0
+77;78;rCin+CinGy;Right Cingulate and Cingulum Gyrus;0;1;0
+78;79;lCin+Hip;Left Cingulum and Hippocampus;1;1;0
+79;80;rCin+Hip;Right Cingulum and Hippocampus;1;1;0
+80;81;lForStrTer;Left Fornix Stria Terminalis;0;1;0
+81;82;rForStrTer;Right Fornix Stria Terminalis;0;1;0
+82;83;lSupLonLon;Left Superior Longitudinal Longitudinal;0;1;0
+83;84;rSupLonLon;Right Superior Longitudinal Longitudinal;0;1;0
+84;85;lSupOcc;Left Superior Occipital;0;1;0
+85;86;rSupOcc;Right Superior Occipital;0;1;0
+86;87;lOcc;Left Occipital;0;1;0
+87;88;rOcc;Right Occipital;0;1;0
+88;89;lSagStr;Left Sagital Stratum;0;1;0
+89;90;rSagStr;Right Sagital Stratum;0;1;0
+90;91;lCapExt;Left Capsule External;0;1;0
+91;92;rCapExt;Right Capsule External;0;1;0
+92;93;lUNC;Left Uncinate;0;1;0
+93;94;rUNC;Right Uncinate;0;1;0
+94;95;lPCT;Left Pontine Crossing Tract;0;1;0
+95;96;rPCT;Right Pontine Crossing Tract;0;1;0
+96;97;lMidCbePed;Left Middle Cerebellar Peduncle;0;1;0
+97;98;rMidCbePed;Right Middle Cerebellar Peduncle;0;1;0
+98;99;lBodForCol;Left (Body) Fornix Column;0;1;0
+99;100;rBodForCol;Right (Body) Fornix Column;0;1;0
+100;101;lCCGen;Left Corpus Callosum (Genu);0;1;0
+101;102;rCCGen;Right Corpus Callosum (Genu);0;1;0
+102;103;lCCBod;Left Corpus Callosum (Body);0;1;0
+103;104;rCCBod;Right Corpus Callosum (Body);0;1;0
+104;105;lCC;Left Corpus Callosum;0;1;0
+105;106;rCC;Right Corpus Callosum;0;1;0
+106;107;lCapRetLenINC;Left Capsule Retrolenticular_part_of_internal_capsule;0;1;0
+107;108;rCapRetLenINC;Right Capsule Retrolenticular_part_of_internal_capsule;0;1;0
+108;109;lRedNuc;Left Red-Nucleus;0;1;0
+109;110;rRedNuc;Right Red-Nucleus;0;1;0
+110;111;lSubNig;Left Substancia-Nigra;0;1;0
+111;112;rSubNig;Right Substancia-Nigra;0;1;0
+112;113;lTap;Left Tapatum;0;1;0
+113;114;rTap;Right Tapatum;0;1;0
+114;115;lCauNuc;Left Caudate Nucleus;1;0;0
+115;116;rCauNuc;Right Caudate Nucleus;1;0;0
+116;117;lPut;Left Putamen;1;0;0
+117;118;rPut;Right Putamen;1;0;0
+118;119;lTha;Left Thalamus;1;0;0
+119;120;rTha;Right Thalamus;1;0;0
+120;121;lGloPal;Left Globus Pallidus;1;0;0
+121;122;rGloPal;Right Globus Pallidus;1;0;0
+122;123;lMBR;Left Midbrain;0;1;0
+123;124;rMBR;Right Midbrain;0;1;0
+124;125;lPNS;Left Pons;0;1;0
+125;126;rPNS;Right Pons;0;1;0
+126;127;lMDA;Left Medulla;0;1;0
+127;128;rMDA;Right Medulla;0;1;0
