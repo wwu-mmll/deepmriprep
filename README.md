@@ -1,3 +1,5 @@
+![logo](https://github.com/user-attachments/assets/bbd01efd-ba71-4504-a085-909b28366de4)
+
 [deepmriprep](https://arxiv.org/) runs **all preprocessing steps** needed for **Voxel-based Morphometry** (VBM) of T1w MR images:
 
 - brain extraction (via [deepbet](https://github.com/wwu-mmll/deepbet))
@@ -8,11 +10,11 @@
 
 Using neural networks, deepmriprep only takes **~10 seconds** on GPU (~100 seconds without GPU) per image.
 
-
+![main_fig](https://github.com/user-attachments/assets/f6dfd6a7-63c4-48d0-9477-af5c30b607cd)
 
 Additionally, deepmriprep can also run **atlas registration** needed for **Region-based Morphometry** (RBM).
 
-
+![atlases_small](https://github.com/user-attachments/assets/fc26fd66-b074-4900-9035-c8bc49f16346)
 
 ## Usage 💡
 After [installation](https://github.com/codingfisch/deepmriprep_beta?tab=readme-ov-file#installation), there are three ways to use deepmriprep
