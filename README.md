@@ -17,7 +17,7 @@ Additionally, deepmriprep can also run **atlas registration** needed for **Regio
 ![atlases_small](https://github.com/user-attachments/assets/fc26fd66-b074-4900-9035-c8bc49f16346)
 
 ## Installation 🛠️
-For GPU-acceleration (NVIDIA GPU needed), PyTorch should be installed first via the [proper installation command for your system](https://pytorch.org/get-started/locally).
+For GPU-acceleration (NVIDIA needed), PyTorch should be installed first via the [proper install command](https://pytorch.org/get-started/locally).
 
 deepmriprep can be easily installed via
 ```bash
