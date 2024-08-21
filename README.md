@@ -8,7 +8,7 @@
 - nonlinear registration
 - smoothing
 
-Using neural networks, deepmriprep only takes **~10 seconds** on GPU (~100 seconds without GPU) per image.
+Using neural networks, deepmriprep only takes **~10 seconds** on GPU (~100 seconds without GPU) per image 🔥
 
 ![main_fig](https://github.com/user-attachments/assets/f6dfd6a7-63c4-48d0-9477-af5c30b607cd)
 
@@ -17,7 +17,7 @@ Additionally, deepmriprep can also run **atlas registration** needed for **Regio
 ![atlases_small](https://github.com/user-attachments/assets/fc26fd66-b074-4900-9035-c8bc49f16346)
 
 ## Installation 🛠️
-For GPU-acceleration (NVIDIA needed), PyTorch should be installed first via the [proper install command](https://pytorch.org/get-started/locally).
+For GPU-acceleration (NVIDIA needed), PyTorch should be installed first via the [proper install command](https://pytorch.org/get-started/locally) 🔥
 
 deepmriprep can be easily installed via
 ```bash
@@ -90,7 +90,7 @@ If you use deepmriprep in your research, please cite:
     }
     
 ## Outputs 📋
-When the "Output Modalities" are set to "custom" in the [`deepmriprep-gui`](https://github.com/wwu-mmll/deepmriprep?tab=readme-ov-file#usage-), all output strings are shown:
+When "Output Modalities" is set to "custom" in the [`deepmriprep-gui`](https://github.com/wwu-mmll/deepmriprep?tab=readme-ov-file#usage-), all output strings are shown:
 
 ![gui_custom](https://github.com/user-attachments/assets/b0cc4991-30a5-427a-9aa7-79f6449436fb)
 
