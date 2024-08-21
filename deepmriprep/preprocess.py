@@ -15,7 +15,8 @@ from .segment import BrainSegmentation, NoGMSegmentation
 from .register import WarpRegistration, MSEAndDice
 from .smooth import Smoothing
 from .atlas import ATLASES, get_volumes, shape_from_to, AtlasRegistration
-from .utils import DEVICE, DATA_PATH, seed_all, nifti_volume, nifti_to_tensor, unsmooth_kernel, find_bids_t1w_files
+from .utils import (DEVICE, DATA_PATH, seed_all, nifti_volume, nifti_to_tensor,
+                    unsmooth_kernel, find_bids_t1w_files, download_missing_models)
 AFFINE_TEMPLATE = nib.load(f'{DATA_PATH}/templates/Template_05mm_bet.nii.gz')
 WARP_TEMPLATE = nib.load(f'{DATA_PATH}/templates/Template_4_GS.nii.gz')
 BET_MODEL_PATHS = {'model_path': f'{DATA_PATH}/models/brain_extraction_model.pt',
@@ -84,6 +85,7 @@ class Preprocess:
     def __init__(self, no_gpu=False, affine_template=AFFINE_TEMPLATE, warp_template=WARP_TEMPLATE,
                  bet_model_paths=None, bet_kwargs=None, affine_kwargs=None, segment_brain_kwargs=None,
                  segment_nogm_kwargs=None, warp_model_path=None, smooth_kwargs=None):
+        download_missing_models()
         self.device = torch.device('cpu' if no_gpu else DEVICE)
         self.affine_template = affine_template
         self.affine_template_metadata = {'affine': affine_template.affine, 'header': affine_template.header}

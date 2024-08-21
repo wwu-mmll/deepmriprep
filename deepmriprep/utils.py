@@ -1,12 +1,15 @@
 import glob
 import torch
 import random
+import requests
 import numpy as np
 import nibabel as nib
 from pathlib import Path
 from torchreg.utils import smooth_kernel
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 DATA_PATH = f'{Path(__file__).parent.resolve()}/data'
+MODEL_FILES = (['segmentation_model.pt', 'segmentation_nogm_model.pt', 'warp_model.pt'] +
+               [f'segmentation_patch_{i}_model.pt' for i in range(18)])
 
 
 def nifti_to_tensor(nifti):
@@ -45,3 +48,41 @@ def find_bids_t1w_files(bids_dir, liberal=False):
         filepaths += glob.glob(f'{bids_dir}/{pattern}')
     filepaths = [fp for fp in filepaths if not '/derivatives/' in fp]
     return sorted(filepaths)
+
+
+def download_missing_models(api_url='https://api.github.com/repos/wwu-mmll/deepmriprep/contents'):
+    for file in MODEL_FILES:
+        if not Path(f'{DATA_PATH}/models/{file}').exists():
+            download_file(f'{api_url}/deepmriprep/data/models/{file}', f'{DATA_PATH}/models/{file}')
+
+
+# def download_file(url, dest_path):
+#     response = requests.get(url, stream=True)
+#     if response.status_code == 200:
+#         with open(dest_path, 'wb') as f:
+#             for chunk in response.iter_content(chunk_size=8192):
+#                 f.write(chunk)
+#         print(f'Downloaded {url} to {dest_path}')
+#     else:
+#         raise Exception(f'Failed to download file from {url}')
+
+
+def download_file(api_url, dest_path):
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        data = response.json()
+        if isinstance(data, dict) and 'download_url' in data:
+            download_url = data['download_url']
+            file_response = requests.get(download_url, stream=True)
+            if file_response.status_code == 200:
+                with open(dest_path, 'wb') as f:
+                    for chunk in file_response.iter_content(chunk_size=8192):
+                        if chunk:  # Filter out keep-alive new chunks
+                            f.write(chunk)
+                print(f'Downloaded {download_url} to {dest_path}')
+            else:
+                raise Exception(f'Failed to download file from {download_url}')
+        else:
+            raise Exception(f'No download URL found in response from {api_url}')
+    else:
+        raise Exception(f'Failed to get metadata from {api_url}')
