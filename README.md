@@ -108,7 +108,7 @@ Here are descriptions for all output strings:
 
 **Affine Registration**
 - `'affine'`: Affine matrix moving 'brain' into template space (compatible with [`F.affine_grid`](https://pytorch.org/docs/stable/generated/torch.nn.functional.affine_grid.html))
-- `'translate'`, `'rotation'`, `'zoom'`, `'shear'`: Parameters of the respective operation which the affine is [composed of](https://github.com/codingfisch/torchreg/blob/main/torchreg/affine.py#L83)
+- `'translate'`, `'rotation'`, `'zoom'`, `'shear'`: Tranformation parameters the affine is [composed of](https://github.com/codingfisch/torchreg/blob/main/torchreg/affine.py#L83)
 - `'mask_large'`: Affine applied to `'mask'` with 0.5mm resolution
 - `'brain_large'`: Affine applied to `'brain'` with 0.5mm resolution
 
