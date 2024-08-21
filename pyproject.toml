@@ -1,0 +1,30 @@
+[tool.poetry]
+name = 'deepmriprep'
+version = '0.1.0'
+description = 'Neural network-based preprocessing of MRI data: Prepping brain images in seconds 🔥'
+authors = ['codingfisch <l_fisc17@wwu.de>']
+license = 'MIT'
+readme = 'README.md'
+repository = 'https://github.com/wwu-mmll/deepmriprep'
+classifiers = [
+    'Programming Language :: Python :: 3',
+    'Operating System :: OS Independent',
+    'Intended Audience :: Science/Research'
+]
+
+[tool.poetry.dependencies]
+python = '^3.8'
+torch = '>=1.11.0'
+deepbet = '>=1.0.2'
+torchreg = '>=0.1.2'
+
+[tool.poetry.dev-dependencies]
+scipy = '*'
+
+[tool.poetry.scripts]
+deepmriprep-cli = 'deepmriprep.ui.cli:run_cli'
+deepmriprep-gui = 'deepmriprep.ui.gui:run_gui'
+
+[build-system]
+requires = ['poetry-core']
+build-backend = 'poetry.core.masonry.api'
