@@ -8,7 +8,7 @@
 - nonlinear registration
 - smoothing
 
-Using neural networks, deepmriprep only takes **~10 seconds** on GPU (~100 seconds without GPU) per image.
+Using neural networks, it only takes **~10 seconds** on a GPU (~100 seconds without a GPU) per image 🔥
 
 ![main_fig](https://github.com/user-attachments/assets/f6dfd6a7-63c4-48d0-9477-af5c30b607cd)
 
@@ -17,7 +17,7 @@ Additionally, deepmriprep can also run **atlas registration** needed for **Regio
 ![atlases_small](https://github.com/user-attachments/assets/fc26fd66-b074-4900-9035-c8bc49f16346)
 
 ## Installation 🛠️
-For GPU-acceleration (NVIDIA GPU needed), PyTorch should be installed first via the [proper installation command for your system](https://pytorch.org/get-started/locally).
+For GPU-acceleration (NVIDIA needed), PyTorch should be installed first via the [proper install command](https://pytorch.org/get-started/locally) 🔥
 
 deepmriprep can be easily installed via
 ```bash
@@ -80,7 +80,7 @@ In short, deepmriprep (consisting of only ~500 lines of code) internally calls t
 A more detailed Tutorial-Notebook will soon be published on Google Colab!
 
 ## Citation ©️
-If you find this code useful in your research, please consider citing:
+If you use deepmriprep in your research, please cite:
 
     @inproceedings{deepmriprep,
     Author = {Lukas Fisch, Nils R. Winter, Janik Goltermann, Carlotta Barkhau, Daniel Emden, Jan Ernsting, Maximilian Konowski, Ramona Leenings, Tiana Borgers, Kira Flinkenflügel, Dominik Grotegerd, Anna Kraus, Elisabeth J. Leehr, Susanne Meinert, Frederike Stein, Lea Teutenberg, Florian Thomas-Odenthal, Paula Usemann, Marco Hermesdorf, Hamidreza Jamalabadi, Andreas Jansen, Igor Nenadic, Benjamin Straube, Tilo Kircher, Klaus Berger, Benjamin Risse, Udo Dannlowski, Tim Hahn},
@@ -90,7 +90,7 @@ If you find this code useful in your research, please consider citing:
     }
     
 ## Outputs 📋
-When the "Output Modalities" are set to "custom" in the [`deepmriprep-gui`](https://github.com/wwu-mmll/deepmriprep?tab=readme-ov-file#usage-), all output strings are shown:
+When "Output Modalities" is set to "custom" in the [`deepmriprep-gui`](https://github.com/wwu-mmll/deepmriprep?tab=readme-ov-file#usage-), all output strings are shown:
 
 ![gui_custom](https://github.com/user-attachments/assets/b0cc4991-30a5-427a-9aa7-79f6449436fb)
 
@@ -108,7 +108,7 @@ Here are descriptions for all output strings:
 
 **Affine Registration**
 - `'affine'`: Affine matrix moving 'brain' into template space (compatible with [`F.affine_grid`](https://pytorch.org/docs/stable/generated/torch.nn.functional.affine_grid.html))
-- `'translate'`, `'rotation'`, `'zoom'`, `'shear'`: Parameters of the respective operation which the affine is [composed of](https://github.com/codingfisch/torchreg/blob/main/torchreg/affine.py#L83)
+- `'translate'`, `'rotation'`, `'zoom'`, `'shear'`: Tranformation parameters the affine is [composed of](https://github.com/codingfisch/torchreg/blob/main/torchreg/affine.py#L83)
 - `'mask_large'`: Affine applied to `'mask'` with 0.5mm resolution
 - `'brain_large'`: Affine applied to `'brain'` with 0.5mm resolution
 
