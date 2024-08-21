@@ -8,7 +8,7 @@
 - nonlinear registration
 - smoothing
 
-Using neural networks, deepmriprep only takes **~10 seconds** on GPU (~100 seconds without GPU) per image 🔥
+Using neural networks, it only takes **~10 seconds** on a GPU (~100 seconds without a GPU) per image 🔥
 
 ![main_fig](https://github.com/user-attachments/assets/f6dfd6a7-63c4-48d0-9477-af5c30b607cd)
 
