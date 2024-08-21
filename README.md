@@ -33,7 +33,7 @@ conda install -c conda-forge tk=*=xft_*
 After installation, there are three ways to use deepmriprep
 1. `deepmriprep-gui` runs the **Graphical User Interface (GUI)**
 
-
+![gui](https://github.com/user-attachments/assets/def9fce5-b1b4-4dbf-9fb3-41dcccb03144)
 
 2. `deepmriprep-cli` runs the **Command Line Interface (CLI)**
 
@@ -64,11 +64,11 @@ Besides the three shown options to specify input and output paths, `run_preproce
 - `no_gpu`: Avoids GPU utilization if set to `True` (set to `False` per default for GPU-acceleration 🔥)
 
 `outputs` set to
-- `'all'` results in [all output modalities](https://github.com/codingfisch/deepmriprep_beta?tab=readme-ov-file#outputs-) being saved
-- `'vbm'` results in the outputs `tiv`, `mwp1`, `mwp2`, `s6mwp1` and `s6mwp2` being saved
-- `'rbm'` results in all available atlases (including regions tissue volumes) being saved
+- `'all'` [all output modalities](https://github.com/codingfisch/deepmriprep_beta?tab=readme-ov-file#outputs-) are saved
+- `'vbm'` the outputs `tiv`, `mwp1`, `mwp2`, `s6mwp1` and `s6mwp2` are saved
+- `'rbm'` results in all available atlases (including regions tissue volumes) are saved
 
-`dir_format` set to (if `output_dir` is set)
+If `output_dir` is set, `dir_format` set to
 - `'sub'` results in e.g. `'outpath/sub-1/tivsub-1.csv'` and `'outpath/sub-1/p0sub-1.nii.gz'`
 - `'mod'` results in e.g. `'outpath/tiv/tivsub-1.csv'` and `'outpath/p0/p0sub-1.nii.gz'`
 - `'cat'` results in e.g. `'outpath/sub-1/label/tivsub-1.csv'` and `'outpath/sub-1/mri/p0sub-1.nii.gz'`
@@ -90,10 +90,13 @@ If you find this code useful in your research, please consider citing:
     }
     
 ## Outputs 📋
-When setting the output modalities to "custom" in the [`deepmriprep-gui`](https://github.com/wwu-mmll/deepmriprep?tab=readme-ov-file#usage-) all output strings are shown:
+When the "Output Modalities" are set to "custom" in the [`deepmriprep-gui`](https://github.com/wwu-mmll/deepmriprep?tab=readme-ov-file#usage-), all output strings are shown:
 
+![gui_custom](https://github.com/user-attachments/assets/b0cc4991-30a5-427a-9aa7-79f6449436fb)
 
-Most output strings follow the [CAT12 naming convention of output files](https://neuro-jena.github.io/cat12-help/#naming). Here are descriptions for all of them:
+Most output strings follow the [CAT12 naming convention of output files](https://neuro-jena.github.io/cat12-help/#naming). 
+
+Here are descriptions for all output strings:
 
 **Input**
 - `'t1'`: T1-weighted MR image
