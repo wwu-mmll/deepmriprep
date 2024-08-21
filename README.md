@@ -80,7 +80,7 @@ In short, deepmriprep (consisting of only ~500 lines of code) internally calls t
 A more detailed Tutorial-Notebook will soon be published on Google Colab!
 
 ## Citation ©️
-If you find this code useful in your research, please consider citing:
+If you use deepmriprep in your research, please cite:
 
     @inproceedings{deepmriprep,
     Author = {Lukas Fisch, Nils R. Winter, Janik Goltermann, Carlotta Barkhau, Daniel Emden, Jan Ernsting, Maximilian Konowski, Ramona Leenings, Tiana Borgers, Kira Flinkenflügel, Dominik Grotegerd, Anna Kraus, Elisabeth J. Leehr, Susanne Meinert, Frederike Stein, Lea Teutenberg, Florian Thomas-Odenthal, Paula Usemann, Marco Hermesdorf, Hamidreza Jamalabadi, Andreas Jansen, Igor Nenadic, Benjamin Straube, Tilo Kircher, Klaus Berger, Benjamin Risse, Udo Dannlowski, Tim Hahn},
