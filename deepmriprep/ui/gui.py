@@ -121,9 +121,9 @@ class App(ctk.CTk):
         self.dir_format = dir_format
 
     def set_outputs(self, *args):
-        columns = 5
+        columns = 4#5
         if self.outputs_dropdown.get() == 'custom' and self.outputs != 'custom':
-            row = 4
+            row = 5
             for i, (step, io_dict) in enumerate(IO.items()):
                 label = ctk.CTkLabel(self, text=STEP_LABELS[step] + ':')
                 self.custom_step_labels.update({step: label})
