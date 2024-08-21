@@ -121,7 +121,7 @@ class App(ctk.CTk):
         self.dir_format = dir_format
 
     def set_outputs(self, *args):
-        columns = 4#5
+        columns = 4
         if self.outputs_dropdown.get() == 'custom' and self.outputs != 'custom':
             row = 5
             for i, (step, io_dict) in enumerate(IO.items()):
