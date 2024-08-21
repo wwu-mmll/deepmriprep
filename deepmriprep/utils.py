@@ -6,7 +6,7 @@ import nibabel as nib
 from pathlib import Path
 from torchreg.utils import smooth_kernel
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
-DATA_PATH = f'{Path(__file__).parents[1].resolve()}/data'
+DATA_PATH = f'{Path(__file__).parent.resolve()}/data'
 
 
 def nifti_to_tensor(nifti):
