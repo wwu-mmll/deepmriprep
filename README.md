@@ -1,6 +1,6 @@
 ![logo](https://github.com/user-attachments/assets/bbd01efd-ba71-4504-a085-909b28366de4)
 
-[deepmriprep](https://arxiv.org/) runs **all preprocessing steps** needed for **Voxel-based Morphometry** (VBM) of T1w MR images:
+[deepmriprep](https://arxiv.org/abs/2408.10656) runs **all preprocessing steps** needed for [**Voxel-based Morphometry** (VBM)](https://www.sciencedirect.com/science/article/pii/S1053811900905822) of T1w MR images:
 
 - brain extraction (via [deepbet](https://github.com/wwu-mmll/deepbet))
 - affine registration (via [torchreg](https://github.com/codingfisch/torchreg))
@@ -16,15 +16,30 @@ Additionally, deepmriprep can also run **atlas registration** needed for **Regio
 
 ![atlases_small](https://github.com/user-attachments/assets/fc26fd66-b074-4900-9035-c8bc49f16346)
 
+## Installation 🛠️
+For GPU-acceleration (NVIDIA GPU needed), PyTorch should be installed first via the [proper installation command for your system](https://pytorch.org/get-started/locally).
+
+deepmriprep can be easily installed via
+```bash
+pip install deepmriprep
+```
+
+The `deepmriprep-gui` can look grainy in conda environments. To fix that run 
+```bash
+conda install -c conda-forge tk=*=xft_*
+```
+
 ## Usage 💡
-After [installation](https://github.com/codingfisch/deepmriprep_beta?tab=readme-ov-file#installation), there are three ways to use deepmriprep
-1. ```deepmriprep-gui``` runs the **Graphical User Interface (GUI)**
+After installation, there are three ways to use deepmriprep
+1. `deepmriprep-gui` runs the **Graphical User Interface (GUI)**
 
 
 
-2. ```deepmriprep-cli``` runs the **Command Line Interface (CLI)** (use `deepmriprep-cli --help` for usage instructions)
+2. `deepmriprep-cli` runs the **Command Line Interface (CLI)**
 
-
+```bash
+deepmriprep-cli -bids path/to/bids
+```
 
 3. Run deepmriprep directly in Python
 
@@ -44,12 +59,12 @@ run_preprocess(input_paths, output_paths=output_paths)
 
 Besides the three shown options to specify input and output paths, `run_preprocess` has the arguments
 
-- `outputs`: Output modalities which can be either `'all'`, `'vbm'`, `'rbm'` or a custom list of [output strings](https://github.com/codingfisch/deepmriprep_alpha/tree/main#complete-list-of-output-strings)
+- `outputs`: Output modalities which can be either `'all'`, `'vbm'`, `'rbm'` or a custom list of [output strings](https://github.com/codingfisch/deepmriprep_beta?tab=readme-ov-file#outputs-)
 - `dir_format`: Output directory structure which can be either `'sub'`, `'mod'`, `'cat'` or `'flat'`
 - `no_gpu`: Avoids GPU utilization if set to `True` (set to `False` per default for GPU-acceleration 🔥)
 
 `outputs` set to
-- `'all'` results in [all output modalities](https://github.com/codingfisch/deepmriprep_alpha/tree/main#complete-list-of-output-strings) being saved
+- `'all'` results in [all output modalities](https://github.com/codingfisch/deepmriprep_beta?tab=readme-ov-file#outputs-) being saved
 - `'vbm'` results in the outputs `tiv`, `mwp1`, `mwp2`, `s6mwp1` and `s6mwp2` being saved
 - `'rbm'` results in all available atlases (including regions tissue volumes) being saved
 
@@ -60,17 +75,9 @@ Besides the three shown options to specify input and output paths, `run_preproce
 - `'flat'` results in e.g. `'outpath/tivsub-1.csv'` and `'outpath/p0sub_1.nii.gz'`
 
 ## Tutorial 🧑‍🏫
-In short, deepmriprep (containing only ~500 lines of code) internally calls the `.run` method of the `Preprocess` class, which sequentially calls the methods `.run_bet` to `.run_atlas_register` (see [deepmriprep/preprocess.py](https://github.com/codingfisch/deepmriprep_beta/blob/main/deepmriprep/preprocess.py#L136)).
+In short, deepmriprep (consisting of only ~500 lines of code) internally calls the `.run` method of the `Preprocess` class, which sequentially calls the methods `.run_bet` to `.run_atlas_register` (see [deepmriprep/preprocess.py](https://github.com/wwu-mmll/deepmriprep/blob/main/deepmriprep/preprocess.py#L132)).
 
-A more detailed Tutorial-Notebook will be soon be published on Google Colab!
-
-## Installation 🛠️
-For GPU-acceleration of deepmriprep 🔥, PyTorch should be installed first via the [proper installation command](https://pytorch.org/get-started/locally) for your system (currently only possible for systems with a NVIDIA GPU).
-
-After that, deepmriprep can be easily installed via
-```bash
-pip install deepmriprep
-```
+A more detailed Tutorial-Notebook will soon be published on Google Colab!
 
 ## Citation ©️
 If you find this code useful in your research, please consider citing:
@@ -78,19 +85,22 @@ If you find this code useful in your research, please consider citing:
     @inproceedings{deepmriprep,
     Author = {Lukas Fisch, Nils R. Winter, Janik Goltermann, Carlotta Barkhau, Daniel Emden, Jan Ernsting, Maximilian Konowski, Ramona Leenings, Tiana Borgers, Kira Flinkenflügel, Dominik Grotegerd, Anna Kraus, Elisabeth J. Leehr, Susanne Meinert, Frederike Stein, Lea Teutenberg, Florian Thomas-Odenthal, Paula Usemann, Marco Hermesdorf, Hamidreza Jamalabadi, Andreas Jansen, Igor Nenadic, Benjamin Straube, Tilo Kircher, Klaus Berger, Benjamin Risse, Udo Dannlowski, Tim Hahn},
     Title = {deepmriprep: Voxel-based Morphometry (VBM) Preprocessing via Deep Neural Networks},
-    Year = {2024}
+    Year = {2024},
+    eprint = {arXiv:2408.10656}
     }
     
 ## Outputs 📋
+When setting the output modalities to "custom" in the [`deepmriprep-gui`](https://github.com/wwu-mmll/deepmriprep?tab=readme-ov-file#usage-) all output strings are shown:
 
-Most output strings follow the [CAT12 naming convention of output files](https://neuro-jena.github.io/cat12-help/#naming). Here is the full list:
+
+Most output strings follow the [CAT12 naming convention of output files](https://neuro-jena.github.io/cat12-help/#naming). Here are descriptions for all of them:
 
 **Input**
-- `'t1'`: T1 weighted MR image
+- `'t1'`: T1-weighted MR image
 
 **Brain Extraction**
 - `'mask'`: Brain mask
-- `'brain'`: T1 after brain mask is applied
+- `'brain'`: `'t1'` after brain mask is applied
 - `'tiv_bet'`: Total intracranial volume in cm³ based on brain extraction
 
 **Affine Registration**
@@ -104,23 +114,23 @@ Most output strings follow the [CAT12 naming convention of output files](https:/
 - `'p0'`: Tissue segmentation map in `'t1'` image space (moved `'p0_large'`)
 
 **Tissue Probabilities**
-- `'nogm'`: Small area around the brain stem which is masked in subsequent GM output
-- `'gmv'`: Gray matter (GM) volume in cm³
-- `'wmv'`: White matter (WM) ""
-- `'csfv'`: Cerebrospinal fluid (CSF) ""
+- `'nogm'`: Small area around the brain stem that is masked in subsequent GM output
+- `'gmv'`: **Gray matter (GM)** volume in cm³
+- `'wmv'`: **White matter (WM)** ""
+- `'csfv'`: **Cerebrospinal fluid (CSF)** ""
 - `'tiv'`: Total intracranial volume in cm³ based on tissue segmentation (gmv + wmv + csfv)
-- `'rel_gmv'`: Proportion of gray matter (GM) volume relative to the total intracranial volume
-- `'rel_wmv'`: Proportion of white matter (WM) ""
-- `'rel_csfv'`: Proportion of cerebrospinal fluid (CSF) ""
-- `'p1'`: Gray matter (GM) tissue probability in `'t1'` image space
-- `'p2'`: White matter (WM) ""
-- `'p3'`: Cerebrospinal fluid (CSF) ""
-- `'p1_large'`: Gray matter (GM) tissue probability based on `'p0_large'`
-- `'p2_large'`: White matter (WM) ""
-- `'p3_large'`: Cerebrospinal fluid (CSF) ""
-- `'p1_affine'`: Gray matter (GM) tissue probability based on `'p0_large'` in template resolution
-- `'p2_affine'`: White matter (WM) ""
-- `'p3_affine'`: Cerebrospinal fluid (CSF) ""
+- `'rel_gmv'`: Proportion of GM volume relative to the total intracranial volume
+- `'rel_wmv'`: Proportion of WM ""
+- `'rel_csfv'`: Proportion of CSF ""
+- `'p1'`: GM tissue probability in `'t1'` image space
+- `'p2'`: WM ""
+- `'p3'`: CSF ""
+- `'p1_large'`: GM tissue probability based on `'p0_large'`
+- `'p2_large'`: WM ""
+- `'p3_large'`: CSF ""
+- `'p1_affine'`: GM tissue probability based on `'p0_large'` in template resolution
+- `'p2_affine'`: WM ""
+- `'p3_affine'`: CSF ""
 
 **Nonlinear Registration**
 - `'wj_affine'`: Jacobian determinant of the affine matrix
@@ -135,24 +145,24 @@ Most output strings follow the [CAT12 naming convention of output files](https:/
 - ...analogous for 'wp2', 'mwp2', 's6mwp2', 's8mwp1', ...
 
 **Atlases**
-- `'aal3'`: Registered AAL3 atlas in `'t1'` image space
-- `'anatomy3'`: Registered Aanatomy3 ""
-- `'cobra'`: Registered Cobra atlas ""
-- `'hammers'`: Registered Hammers atlas ""
-- `'ibsr'`: Registered IBSR atlas ""
-- `'julichbrain'`: Registered Julichbrain atlas ""
-- `'lpba40'`: Registered LPBA40 atlas ""
-- `'mori'`: Registered Mori atlas ""
-- `'neuromorphometrics'`: Registered Neuromorphometrics ""
-- `'suit'`: Registered SUIT ""
-- `'thalamic_nuclei'`: Registered Thalamic Nuclei ""
-- `'thalamus'`: Registered Thalamus ""
-- `'Schaefer2018_100Parcels_17Networks_order'`: Registered Schaefer 100 ""
-- `'Schaefer2018_200Parcels_17Networks_order'`: Registered Schaefer 200 ""
-- `'Schaefer2018_400Parcels_17Networks_order'`: Registered Schaefer 400 ""
-- `'Schaefer2018_600Parcels_17Networks_order'`: Registered Schaefer 600 ""
+- `'aal3'`: Registered [AAL3](https://www.sciencedirect.com/science/article/pii/S1053811919307803) atlas in `'t1'` image space
+- `'anatomy3'`: Registered [Anatomy3](https://www.sciencedirect.com/science/article/pii/S105381190400792X?via%3Dihub) ""
+- `'cobra'`: Registered [Cobra](https://www.sciencedirect.com/science/article/pii/S1053811913001237) atlas ""
+- `'hammers'`: Registered [Hammers](https://www.sciencedirect.com/science/article/pii/S1053811907010634?via%3Dihub) atlas ""
+- `'ibsr'`: Registered [IBSR](https://ieeexplore.ieee.org/abstract/document/5977031) atlas ""
+- `'julichbrain'`: Registered [Julichbrain](https://www.science.org/doi/10.1126/science.abb4588) atlas ""
+- `'lpba40'`: Registered [LPBA40](https://www.sciencedirect.com/science/article/pii/S1053811907008099?via%3Dihub) atlas ""
+- `'mori'`: Registered [Mori](https://www.sciencedirect.com/science/article/pii/S1053811909000093?via%3Dihub) atlas ""
+- `'neuromorphometrics'`: Registered [Neuromorphometrics](http://www.neuromorphometrics.com/) ""
+- `'suit'`: Registered [SUIT](https://www.sciencedirect.com/science/article/pii/S1053811909000809) ""
+- `'thalamic_nuclei'`: Registered [Thalamic Nuclei](https://www.nature.com/articles/s41597-021-01062-y) ""
+- `'thalamus'`: Registered [Thalamus](https://www.nature.com/articles/sdata2018270) ""
+- `'Schaefer2018_100Parcels_17Networks_order'`: Registered [Schaefer](https://academic.oup.com/cercor/article/28/9/3095/3978804?login=true) 100 ""
+- `'Schaefer2018_200Parcels_17Networks_order'`: Registered [Schaefer](https://academic.oup.com/cercor/article/28/9/3095/3978804?login=true) 200 ""
+- `'Schaefer2018_400Parcels_17Networks_order'`: Registered [Schaefer](https://academic.oup.com/cercor/article/28/9/3095/3978804?login=true) 400 ""
+- `'Schaefer2018_600Parcels_17Networks_order'`: Registered [Schaefer](https://academic.oup.com/cercor/article/28/9/3095/3978804?login=true) 600 ""
 
 For each atlas, there also can be outputted two more modalities:
 - `'aal3_affine'`: Registered AAL3 atlas in template space
-- `'aal3_volumes'`: Gray matter (GM), White matter (WM) and Cerebrospinal fluid (CSF) volume in mm³ per region of the AAL3 atlas
-- ...analogous 'anatomy3', 'cobra', ...
+- `'aal3_volumes'`: GM, WM and CSF volume in mm³ per region of the AAL3 atlas
+- ...analogous `'anatomy3_affine'`, `'anatomy3_volumes'`, `'cobra_affine'`, `'cobra_volumes'` ...
