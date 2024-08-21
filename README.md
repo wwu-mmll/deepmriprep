@@ -33,7 +33,7 @@ conda install -c conda-forge tk=*=xft_*
 After installation, there are three ways to use deepmriprep
 1. `deepmriprep-gui` runs the **Graphical User Interface (GUI)**
 
-
+![gui](https://github.com/user-attachments/assets/def9fce5-b1b4-4dbf-9fb3-41dcccb03144)
 
 2. `deepmriprep-cli` runs the **Command Line Interface (CLI)**
 
@@ -90,8 +90,9 @@ If you find this code useful in your research, please consider citing:
     }
     
 ## Outputs 📋
-When setting the output modalities to "custom" in the [`deepmriprep-gui`](https://github.com/wwu-mmll/deepmriprep?tab=readme-ov-file#usage-) all output strings are shown:
+When setting the output modalities to "custom" in the [`deepmriprep-gui`](https://github.com/wwu-mmll/deepmriprep?tab=readme-ov-file#usage-), all output strings are shown:
 
+![gui_custom](https://github.com/user-attachments/assets/b0cc4991-30a5-427a-9aa7-79f6449436fb)
 
 Most output strings follow the [CAT12 naming convention of output files](https://neuro-jena.github.io/cat12-help/#naming). Here are descriptions for all of them:
 
