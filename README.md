@@ -77,7 +77,7 @@ If `output_dir` is set, `dir_format` set to
 ## Tutorial 🧑‍🏫
 In short, deepmriprep (consisting of only ~500 lines of code) internally calls the `.run` method of the `Preprocess` class, which sequentially calls the methods `.run_bet` to `.run_atlas_register` (see [deepmriprep/preprocess.py](https://github.com/wwu-mmll/deepmriprep/blob/main/deepmriprep/preprocess.py#L132)).
 
-A more detailed Tutorial-Notebook will soon be published on Google Colab!
+[Click here to view the tutorial](https://colab.research.google.com/drive/1zwIaFob2Ri-JjDVhcCjD1_Ef7G62wfJN?usp=sharing) and get a more detailed look behind the scenes 👀
 
 ## Citation ©️
 If you use deepmriprep in your research, please cite:
