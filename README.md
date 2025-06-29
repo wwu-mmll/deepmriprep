@@ -68,7 +68,7 @@ Besides the three shown options to specify input and output paths, `run_preproce
 `outputs` set to
 - `'all'` [all output modalities](https://github.com/codingfisch/deepmriprep_beta?tab=readme-ov-file#outputs-) are saved
 - `'vbm'` the outputs `tiv`, `mwp1`, `mwp2`, `s6mwp1` and `s6mwp2` (+`affine_loss`&`warp_mse`, for QC) are saved
-- `'rbm'` results in all available atlases (including regions tissue volumes) (+`affine_loss`&`warp_mse`, for QC) are saved
+- `'rbm'` all available atlases (including regions tissue volumes) (+`affine_loss`&`warp_mse`, for QC) are saved
 
 If `output_dir` is set, `dir_format` set to
 - `'sub'` results in e.g. `'outpath/sub-1/tivsub-1.csv'` and `'outpath/sub-1/p0sub-1.nii.gz'`
