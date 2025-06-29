@@ -3,6 +3,7 @@ import warnings
 import numpy as np
 import pandas as pd
 import nibabel as nib
+import spline_resize as sr
 import torch.nn.functional as F
 from tqdm import tqdm
 from pathlib import Path
@@ -16,7 +17,7 @@ from .register import WarpRegistration, MSEAndDice
 from .smooth import Smoothing
 from .atlas import ATLASES, get_volumes, shape_from_to, AtlasRegistration
 from .utils import (DEVICE, DATA_PATH, seed_all, nifti_volume, nifti_to_tensor,
-                    unsmooth_kernel, find_bids_t1w_files, download_missing_models)
+                    find_bids_t1w_files, download_missing_models)
 AFFINE_TEMPLATE = nib.load(f'{DATA_PATH}/templates/Template_05mm_bet.nii.gz')
 WARP_TEMPLATE = nib.load(f'{DATA_PATH}/templates/Template_4_GS.nii.gz')
 BET_MODEL_PATHS = {'model_path': f'{DATA_PATH}/models/brain_extraction_model.pt',
@@ -102,7 +103,6 @@ class Preprocess:
         self.nogm_segment = NoGMSegmentation(no_gpu, **segment_nogm_kwargs)
         self.warp_register = WarpRegistration(no_gpu, warp_model_path)
         self.smoothing = Smoothing(no_gpu, **smooth_kwargs)
-        self.p0_kernel = unsmooth_kernel(device=self.device)[None, None]
         self.atlas_register = AtlasRegistration(no_gpu)
         self._outputs = {}
 
@@ -161,8 +161,12 @@ class Preprocess:
         y = torch.cat([template, (template > .0).float()], dim=1)
         aff_reg = AffineRegistration(**self.affine_kwargs)
         aff_reg(x.to(self.device), y.to(self.device), return_moved=False)
-        brain_large, mask_large = aff_reg.transform(torch.cat([brain, mask], 1).to(self.device), template.shape[-3:])[0]
-        affine = aff_reg.get_affine()[0].detach().cpu().numpy()
+        affine = aff_reg.get_affine().detach()
+        grid = F.affine_grid(affine, [1, 3, *template.shape[-3:]], align_corners=INTERP_KWARGS['align_corners'])
+        mask_large = F.grid_sample(mask.to(self.device), grid, align_corners=INTERP_KWARGS['align_corners'], mode='bilinear')[0, 0]
+        brain_large = sr.grid_sample(brain.to(self.device), grid, align_corners=INTERP_KWARGS['align_corners'], prefilter=True, mask_value=0)[0, 0]
+        if self.device.type == 'cuda': torch.cuda.empty_cache()
+        affine = affine[0].cpu().numpy()
         translation, rotation, zoom, shear = [param[0].detach().cpu().numpy() for param in aff_reg._parameters]
         header_fp32 = self.affine_template.header.copy()
         header_fp32.set_data_dtype(np.float32)
@@ -177,14 +181,15 @@ class Preprocess:
     def run_segment_brain(self, brain_large, mask, affine, mask_large):
         brain_large = nifti_to_tensor(brain_large)
         mask_large = nifti_to_tensor(mask_large)
-        p0_large = self.brain_segment(brain_large[None, None].to(self.device))[0, 0]
+        p0_large = self.brain_segment(brain_large[None, None].to(self.device), mask_large[None, None].to(self.device))[0, 0]
+        if self.device.type == 'cuda': torch.cuda.empty_cache()
         p0_large[mask_large == 0.] = 0.
         inv_affine = torch.linalg.inv(torch.from_numpy(affine.values).float().to(self.device))
-        p0 = F.conv3d(p0_large[None, None].to(self.device), self.p0_kernel, padding=1)
         shape = nib.as_closest_canonical(mask).shape
         grid = F.affine_grid(inv_affine[None, :3], [1, 3, *shape], align_corners=INTERP_KWARGS['align_corners'])
-        p0 = F.grid_sample(p0, grid, align_corners=INTERP_KWARGS['align_corners'])[0, 0]
-        p0 = p0.clip(min=0, max=3)
+        p0 = sr.grid_sample(p0_large[None, None].to(self.device), grid, align_corners=INTERP_KWARGS['align_corners'], mask_value=0)[0, 0]
+        p0 = p0.clip(min=0, max=3).cpu()
+        if self.device.type == 'cuda': torch.cuda.empty_cache()
         return {'p0_large': reoriented_nifti(p0_large.cpu().numpy(), **self.affine_template_metadata),
                 'p0': reoriented_nifti(p0.cpu().numpy(), mask.affine, mask.header)}
 
@@ -195,7 +200,9 @@ class Preprocess:
         inv_affine = torch.linalg.inv(torch.from_numpy(affine.values).float().to(self.device))
         t1_shape = nib.as_closest_canonical(t1).get_fdata().shape
         grid = F.affine_grid(inv_affine[None, :3], [1, 3, *t1_shape], align_corners=INTERP_KWARGS['align_corners'])
-        p = F.grid_sample(p_large.clone(), grid, align_corners=INTERP_KWARGS['align_corners'])[0]
+        p = sr.grid_sample(p_large, grid, align_corners=INTERP_KWARGS['align_corners'], mask_value=0)[0]
+        p = p.clip(min=0, max=1).cpu()
+        if self.device.type == 'cuda': torch.cuda.empty_cache()
         vol = 1e-3 * nifti_volume(t1) * p[None].mean((2, 3, 4)).cpu().numpy()
         abs_vol = pd.DataFrame(vol, columns=['gmv_cm3', 'wmv_cm3', 'csfv_cm3'])
         rel_vol = pd.DataFrame(vol / vol.sum(), columns=['gmv/tiv', 'wmv/tiv', 'csfv/tiv'])

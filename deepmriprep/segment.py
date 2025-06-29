@@ -5,6 +5,7 @@ import pandas as pd
 import torch.nn.functional as F
 from deepbet.utils import load_model
 from torchreg.utils import INTERP_KWARGS, smooth_kernel
+from spline_resize import resize
 
 from .utils import DATA_PATH, DEVICE
 
@@ -22,7 +23,7 @@ class BrainSegmentation:
         self.patch_weights = get_patch_weights(self.patch_slices, shape, patch_shape, sigma * torch.ones(3))
         self.fill_holes = fill_holes
 
-    def __call__(self, x):
+    def __call__(self, x, mask):
         x = x[:, :, 1:-2, 15:-12, :-3]
         x = scale_intensity(x)
         p0 = self.run_model(x)
@@ -47,8 +48,8 @@ class BrainSegmentation:
 
     def run_model(self, x, scale_factor=1.5):
         with torch.no_grad():
-            p0 = self.model(F.interpolate(x, scale_factor=1 / scale_factor, **INTERP_KWARGS))
-        return F.interpolate(p0, scale_factor=scale_factor, **INTERP_KWARGS)
+            p0 = self.model(resize(x, scale_factor=1 / scale_factor, align_corners=INTERP_KWARGS['align_corners'], mask_value=0))
+        return resize(p0, scale_factor=scale_factor, align_corners=INTERP_KWARGS['align_corners'], mask_value=0)
 
 
 def scale_intensity(x, low=.5, high=99.5):

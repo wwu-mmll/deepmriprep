@@ -5,7 +5,6 @@ import requests
 import numpy as np
 import nibabel as nib
 from pathlib import Path
-from torchreg.utils import smooth_kernel
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 DATA_PATH = f'{Path(__file__).parent.resolve()}/data'
 MODEL_FILES = (['brain_extraction_bbox_model.pt', 'brain_extraction_model.pt', 'segmentation_nogm_model.pt'] +
@@ -20,14 +19,6 @@ def nifti_volume(nifti):
     oriented_nifti = nib.as_closest_canonical(nifti)
     voxel_volume = np.prod(oriented_nifti.header.get_zooms()[:3])
     return voxel_volume * np.prod(np.array(oriented_nifti.shape[:3]))
-
-
-def unsmooth_kernel(factor=3., sigma=.6, device='cpu'):
-    # Hand-optimized factor and sigma for compensation of smoothing caused by affine transformation (inspired by CAT12)
-    kernel = -factor * smooth_kernel(kernel_size=3 * [3], sigma=torch.tensor(3 * [sigma], device=device))
-    kernel[1, 1, 1] = 0
-    kernel[1, 1, 1] = 1 - kernel.sum()
-    return kernel
 
 
 def seed_all(seed_value):
