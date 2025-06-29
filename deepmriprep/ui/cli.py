@@ -32,9 +32,12 @@ def run_cli():
     args = parser.parse_args()
 
     outputs = args.outputs[0] if args.outputs[0] in ['all', 'vbm', 'rbm'] else args.outputs
-    assert args.input is not None or args.csv_path is not None, 'No input filepaths given'
+    assert not (args.input is None and args.bids_dir is None and args.csv_path is None), 'No input filepaths given'
     if args.csv_path is None:
-        input_paths = sorted(glob.glob(f'{args.input}/*.ni*')) if os.path.isdir(args.input) else [args.input]
+        if args.bids_dir is None:
+            input_paths = sorted(glob.glob(f'{args.input}/*.ni*')) if os.path.isdir(args.input) else [args.input]
+        else:
+            input_paths = None
         output_paths = None
     else:
         input_paths, output_paths = get_paths_from_csv(args.csv_path)
