@@ -55,8 +55,8 @@ OUTPUTS['csv'] = OUTPUTS['scalar'] + OUTPUTS['tensor']
 DIR_FORMATS = ['sub', 'mod', 'cat', 'flat']
 
 
-def run_preprocess(input_paths=None, bids_dir=None, output_paths=None, output_dir=None, outputs='vbm',
-                   dir_format='sub', no_gpu=False, progress_bar_func=None, skip_broken=True, **kwargs):
+def run_preprocess(input_paths=None, bids_dir=None, output_paths=None, output_dir=None, outputs='vbm', dir_format='sub',
+                    no_gpu=False, progress_bar_func=None, skip_broken=True, skip_unprocessed=True, **kwargs):
     table_path = output_dir if bids_dir is None else f'{bids_dir}/derivatives/deepmriprep'
     table_path = str(Path.cwd()) if table_path is None else table_path
     table_path += '/deepmriprep_outputs.csv'
@@ -74,8 +74,8 @@ def run_preprocess(input_paths=None, bids_dir=None, output_paths=None, output_di
         else:
             for o_path in out_paths.values():
                 Path(o_path).parent.mkdir(exist_ok=True, parents=True)
-            output = prep.run(in_path, out_paths, run_all=False)
-            if table.shape[1] > df.shape[1]:
+            output = prep.run(in_path, out_paths, run_all=False, skip_unprocessed=skip_unprocessed)
+            if table.shape[1] > df.shape[1] and output is not None:
                 table.loc[in_path, value_columns] = [output[c[:-6]].values.item() for c in table.columns[df.shape[1]:]]
             table.to_csv(table_path)
     return table
@@ -106,7 +106,10 @@ class Preprocess:
         self.atlas_register = AtlasRegistration(no_gpu)
         self._outputs = {}
 
-    def run(self, input_path, output_paths=None, run_all=True, seed=0):
+    def run(self, input_path, output_paths=None, run_all=True, seed=0, skip_unprocessed=True):
+        if output_paths is None:
+            output_paths = {}
+            run_all = True
         self._outputs = {}
         functions = {'bet': self.run_bet,
                      'affine': self.run_affine_register,
@@ -116,8 +119,12 @@ class Preprocess:
                      'smooth': self.run_smooth,
                      'atlas': self.run_atlas_register}
         atlas_kwargs = {'atlas_list': [o for o in IO['atlas']['output'] if o in output_paths or run_all]}
-        t1 = nib.load(input_path)
-        t1_array = t1.get_fdata()[..., 0] if len(t1.shape) == 4 else t1.get_fdata()
+        try:
+            t1 = nib.load(input_path)
+            t1_array = t1.get_fdata()[..., 0] if len(t1.shape) == 4 else t1.get_fdata()
+        except:
+            warnings.warn(f'File {input_path} could not be properly loaded (might be broken)', Warning)
+            return None
         self._outputs = {'t1': nib.Nifti1Image(t1_array, t1.affine, t1.header)}
         steps = needed_steps(output_paths)
         for step, io_dict in IO.items():
@@ -126,7 +133,16 @@ class Preprocess:
             if step in steps or run_all:
                 imgs = tuple(self._outputs[inp] for inp in io_dict['input'])
                 kw = atlas_kwargs if step == 'atlas' else {}
-                outputs = functions[step](*imgs, **kw)
+                if skip_unprocessed:
+                    try:
+                        outputs = functions[step](*imgs, **kw)
+                    except:
+                        warnings.warn(f'Processing of {input_path} skipped at step "{step}" (for error messages, use skip_unprocessed=False)', Warning)
+                        self._outputs = {k: self._outputs[k] if k in self._outputs else pd.DataFrame([None])
+                                         for k, v in output_paths.items()}
+                        break
+                else:
+                    outputs = functions[step](*imgs, **kw)
                 self._outputs.update(**outputs)
                 save_output(outputs, output_paths)
         return self._outputs
@@ -296,7 +312,7 @@ def get_path_dataframe(input_paths=None, bids_dir=None, output_paths=None, outpu
                        dir_format='cat12'):
     assert not (input_paths is None and bids_dir is None), 'No input filepaths given'
     assert not (bids_dir is None and output_dir is None and output_paths is None), 'No output filepaths given'
-    input_paths = find_bids_t1w_files(bids_dir) or input_paths
+    input_paths = find_bids_t1w_files(bids_dir) if input_paths is None else input_paths
     outputs = OUTPUTS[outputs] if isinstance(outputs, str) else outputs
     output_paths = output_paths if bids_dir is None else create_bids_output_paths(input_paths, bids_dir, outputs)
     if output_paths is None:

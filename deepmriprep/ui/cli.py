@@ -23,8 +23,10 @@ def run_cli():
     parser.add_argument('-out', '--outputs', help='all, vbm, rbm or list of output strings (e.g. [p0, mwp1])',
                         required=False, nargs='+', default=['vbm'])
     parser.add_argument('-f', '--dir_format', help='sub, mod, cat or flat', required=False, type=str, default='sub')
-    parser.add_argument('-ng', '--no_gpu', help='If GPU should be avoided', required=False, type=bool, default=False,
-                        action=argparse.BooleanOptionalAction)
+    parser.add_argument('-ng', '--no_gpu', help='If GPU should be avoided', required=False,
+                        type=bool, default=False, action=argparse.BooleanOptionalAction)
+    parser.add_argument('-ns', '--no_skip', help='Do not skip files that could not be processed', required=False,
+                        type=bool, default=False, action=argparse.BooleanOptionalAction)
     parser.add_argument('-csv', '--csv_path', required=False, type=str, default=None,
                         help='Filepath of csv which contains input filepaths in first column and output filepaths in '
                              'subsequent columns. Column headers should be respective output strings (e.g. p0 or mwp1).'
@@ -43,7 +45,8 @@ def run_cli():
         input_paths, output_paths = get_paths_from_csv(args.csv_path)
         args.output_dir = Path(args.csv_path).stem
 
-    run_preprocess(input_paths, args.bids_dir, output_paths, args.output_dir, outputs, args.dir_format, args.no_gpu)
+    run_preprocess(input_paths, args.bids_dir, output_paths, args.output_dir, outputs, args.dir_format, args.no_gpu,
+                   skip_unprocessed=not args.no_skip)
 
 
 if __name__ == '__main__':
