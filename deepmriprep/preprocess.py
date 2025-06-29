@@ -34,7 +34,8 @@ ATLAS_VOLUMES = tuple([f'{atlas}_volumes' for atlas in ATLASES])
 IO = {'bet': {'input': ('t1',),
               'output': ('brain', 'mask', 'bet_tiv')},
       'affine': {'input': ('brain', 'mask'),
-                 'output': ('brain_large', 'mask_large', 'affine', 'zoom', 'translation', 'shear', 'rotation')},
+                 'output': ('brain_large', 'mask_large', 'affine',
+                            'zoom', 'translation', 'shear', 'rotation', 'affine_loss')},
       'segment_brain': {'input': ('brain_large', 'mask', 'affine', 'mask_large'),
                         'output': ('p0_large', 'p0')},
       'segment_nogm': {'input': ('p0_large', 'affine', 't1'),
@@ -42,15 +43,17 @@ IO = {'bet': {'input': ('t1',),
                                   'p1_affine', 'p2_affine', 'p3_affine',
                                   'gmv', 'wmv', 'csfv', 'tiv', 'rel_gmv', 'rel_wmv', 'rel_csfv', 'wj_affine')},
       'warp': {'input': ('p0_large', 'p1_affine', 'p2_affine', 'wj_affine'),
-               'output': ('warp_xy', 'warp_yx', 'iy_', 'wj_', 'wp0', 'wp1', 'wp2', 'mwp1', 'mwp2', 'v_xy', 'v_yx')},  # 'y_', 'iy_'
+               'output': ('warp_xy', 'warp_yx', 'warp_mse', 'iy_', 'wj_', 'wp0', 'wp1', 'wp2', 'mwp1', 'mwp2',
+                          'v_xy', 'v_yx')},  # 'y_', 'iy_'
       'smooth': {'input': ('mwp1', 'mwp2'),
                  'output': ('s6mwp1', 's6mwp2', 's8mwp1', 's8mwp2')},
       'atlas': {'input': ('t1', 'affine', 'warp_yx', 'p1_large', 'p2_large', 'p3_large'),
                 'output': ATLASES + ATLASES_AFFINE + ATLAS_VOLUMES}}
 OUTPUTS = {'all': sum([list(v['output']) for v in IO.values()], []),
-           'vbm': ['mwp1', 'mwp2', 's6mwp1', 's8mwp1', 'tiv'],
-           'rbm': ATLASES + ATLAS_VOLUMES,
-           'scalar': ['bet_tiv', 'gmv', 'wmv', 'csfv', 'tiv', 'rel_gmv', 'rel_wmv', 'rel_csfv', 'wj_affine'],
+           'vbm': ['mwp1', 'mwp2', 's6mwp1', 's8mwp1', 'tiv', 'affine_loss', 'warp_mse'],
+           'rbm': ATLASES + ATLAS_VOLUMES + ('affine_loss', 'warp_mse'),
+           'scalar': ['bet_tiv', 'gmv', 'wmv', 'csfv', 'tiv', 'rel_gmv', 'rel_wmv', 'rel_csfv', 'wj_affine',
+                      'affine_loss', 'warp_mse'],
            'tensor': ['affine', 'zoom', 'translation', 'shear', 'rotation'] + list(ATLAS_VOLUMES)}
 OUTPUTS['csv'] = OUTPUTS['scalar'] + OUTPUTS['tensor']
 DIR_FORMATS = ['sub', 'mod', 'cat', 'flat']
@@ -176,7 +179,8 @@ class Preprocess:
                 'translation': pd.Series(translation),
                 'rotation': pd.DataFrame(rotation),
                 'zoom': pd.Series(zoom),
-                'shear': pd.Series(shear)}
+                'shear': pd.Series(shear),
+                'affine_loss': pd.Series([aff_reg._loss])}
 
     def run_segment_brain(self, brain_large, mask, affine, mask_large):
         brain_large = nifti_to_tensor(brain_large)
@@ -231,6 +235,7 @@ class Preprocess:
         template = nifti_to_tensor(self.warp_template).permute(3, 0, 1, 2).to(self.device)
         images, flows, v = self.warp_register(p[None, :2], template[None, :2], x_cat=p[None, -1:])
         wp = images['xy_full'][0]
+        mse = ((wp[:2] - template[:2])**2).mean().item()
         wj = jacobi_determinant(flows['xy_full'] - self.warp_register.syn._grid)
         mwp = wp * wj[None] * wj_affine[0]
         v_xy = v['xy_velocity'][0].permute(1, 2, 3, 0)
@@ -248,7 +253,8 @@ class Preprocess:
                 'mwp1': reoriented_nifti(mwp[0].cpu().numpy(), self.warp_template.affine, header_fp32),
                 'mwp2': reoriented_nifti(mwp[1].cpu().numpy(), self.warp_template.affine, header_fp32),
                 'v_xy': reoriented_nifti(v_xy.detach().cpu().numpy(), self.warp_template.affine, header_fp32),
-                'v_yx': reoriented_nifti(v_yx.detach().cpu().numpy(), self.warp_template.affine, header_fp32)}
+                'v_yx': reoriented_nifti(v_yx.detach().cpu().numpy(), self.warp_template.affine, header_fp32),
+                'warp_mse': pd.Series([mse])}
 
     def run_smooth(self, mwp1, mwp2):
         smwp1 = self.smoothing(nifti_to_tensor(mwp1)[None, None].to(self.device))[0]

@@ -65,14 +65,23 @@ Besides the three shown options to specify input and output paths, `run_preproce
 
 `outputs` set to
 - `'all'` [all output modalities](https://github.com/codingfisch/deepmriprep_beta?tab=readme-ov-file#outputs-) are saved
-- `'vbm'` the outputs `tiv`, `mwp1`, `mwp2`, `s6mwp1` and `s6mwp2` are saved
-- `'rbm'` results in all available atlases (including regions tissue volumes) are saved
+- `'vbm'` the outputs `tiv`, `mwp1`, `mwp2`, `s6mwp1` and `s6mwp2` (+`affine_loss`&`warp_loss`, for QC) are saved
+- `'rbm'` results in all available atlases (including regions tissue volumes) (+`affine_loss`&`warp_loss`, for QC) are saved
 
 If `output_dir` is set, `dir_format` set to
 - `'sub'` results in e.g. `'outpath/sub-1/tivsub-1.csv'` and `'outpath/sub-1/p0sub-1.nii.gz'`
 - `'mod'` results in e.g. `'outpath/tiv/tivsub-1.csv'` and `'outpath/p0/p0sub-1.nii.gz'`
 - `'cat'` results in e.g. `'outpath/sub-1/label/tivsub-1.csv'` and `'outpath/sub-1/mri/p0sub-1.nii.gz'`
 - `'flat'` results in e.g. `'outpath/tivsub-1.csv'` and `'outpath/p0sub_1.nii.gz'`
+
+## Quality Control 🔍
+Use [NiftiView](https://github.com/codingfisch/niftiview-app) to quickly quality check outputs via patterns like
+```bash
+/path/to/bids/derivatives/deepmriprep/sub*/anat/mri/p0sub*.ni*
+```
+in the "Image files" field (all `p0` files in this example).
+
+For large datasets, sort `deepmriprep_outputs.csv` by `affine_loss` and `warp_mse`, since high values can indicate low quality! 
 
 ## Tutorial 🧑‍🏫
 In short, deepmriprep (consisting of only ~500 lines of code) internally calls the `.run` method of the `Preprocess` class, which sequentially calls the methods `.run_bet` to `.run_atlas_register` (see [deepmriprep/preprocess.py](https://github.com/wwu-mmll/deepmriprep/blob/main/deepmriprep/preprocess.py#L132)).
@@ -111,6 +120,7 @@ Here are descriptions for all output strings:
 - `'translate'`, `'rotation'`, `'zoom'`, `'shear'`: Tranformation parameters the affine is [composed of](https://github.com/codingfisch/torchreg/blob/main/torchreg/affine.py#L83)
 - `'mask_large'`: Affine applied to `'mask'` with 0.5mm resolution
 - `'brain_large'`: Affine applied to `'brain'` with 0.5mm resolution
+- `'affine_loss'`: Loss value of the affine registration
 
 **Tissue Segmentation**
 - `'p0_large'`: Tissue segmentation map of `'brain_large'`
@@ -139,6 +149,7 @@ Here are descriptions for all output strings:
 - `'wj_affine'`: Jacobian determinant of the affine matrix
 - `'warp_xy'`: Forward warping field (compatible with [`F.grid_sample`](https://pytorch.org/docs/stable/generated/torch.nn.functional.affine_grid.html))
 - `'warp_yx'`: Backward warping field (compatible with [`F.grid_sample`](https://pytorch.org/docs/stable/generated/torch.nn.functional.affine_grid.html))
+- `'warp_mse'`: Mean squared error between warped `p` and warp template
 - `'wj_'`: Jacobian determinant of forward warping field
 - `'v_xy'`: Forward velocity field (compatible with [`F.grid_sample`](https://pytorch.org/docs/stable/generated/torch.nn.functional.affine_grid.html))
 - `'v_yx'`: Backward velocity field (compatible with [`F.grid_sample`](https://pytorch.org/docs/stable/generated/torch.nn.functional.affine_grid.html))
