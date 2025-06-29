@@ -13,8 +13,8 @@ class BrainSegmentation:
     def __init__(self, no_gpu=False, model_path=None, patch_model_path=None, shape=(336, 384, 336),
                  patch_shape=(128, 128, 128), sigma=30., fill_holes=True):
         self.device = torch.device('cpu' if no_gpu else DEVICE)
-        model_path = f'{DATA_PATH}/models/segmentation_model.pt' or model_path
-        patch_model_path = f'{DATA_PATH}/models/segmentation_patch_model.pt' or patch_model_path
+        model_path = f'{DATA_PATH}/models/segmentation_model.pt' if model_path is None else model_path
+        patch_model_path = f'{DATA_PATH}/models/segmentation_patch_model.pt' if patch_model_path is None else patch_model_path
         self.model = load_model(model_path, no_gpu)
         self.patch_models = [load_model(patch_model_path.replace('patch', f'patch_{i}'), no_gpu) for i in range(18)]
         bounds = pd.read_csv(f'{DATA_PATH}/patches.csv')
