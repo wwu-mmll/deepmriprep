@@ -1,3 +1,5 @@
+**Disclaimer**: deepmriprep is not related to fMRIPrep or sMRIPrep and is not part of the NiPreps framework
+ 
 ![logo](https://github.com/user-attachments/assets/bbd01efd-ba71-4504-a085-909b28366de4)
 
 [deepmriprep](https://arxiv.org/abs/2408.10656) runs **all preprocessing steps** needed for [**Voxel-based Morphometry** (VBM)](https://www.sciencedirect.com/science/article/pii/S1053811900905822) of T1w MR images:
