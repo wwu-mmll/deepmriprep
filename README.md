@@ -67,8 +67,8 @@ Besides the three shown options to specify input and output paths, `run_preproce
 
 `outputs` set to
 - `'all'` [all output modalities](https://github.com/codingfisch/deepmriprep_beta?tab=readme-ov-file#outputs-) are saved
-- `'vbm'` the outputs `tiv`, `mwp1`, `mwp2`, `s6mwp1` and `s6mwp2` (+`affine_loss`&`warp_loss`, for QC) are saved
-- `'rbm'` results in all available atlases (including regions tissue volumes) (+`affine_loss`&`warp_loss`, for QC) are saved
+- `'vbm'` the outputs `tiv`, `mwp1`, `mwp2`, `s6mwp1` and `s6mwp2` (+`affine_loss`&`warp_mse`, for QC) are saved
+- `'rbm'` results in all available atlases (including regions tissue volumes) (+`affine_loss`&`warp_mse`, for QC) are saved
 
 If `output_dir` is set, `dir_format` set to
 - `'sub'` results in e.g. `'outpath/sub-1/tivsub-1.csv'` and `'outpath/sub-1/p0sub-1.nii.gz'`
@@ -83,7 +83,7 @@ Use [NiftiView](https://github.com/codingfisch/niftiview-app) to quickly quality
 ```
 in the "Image files" field (all `p0` files in this example).
 
-For large datasets, sort `deepmriprep_outputs.csv` by `affine_loss` and `warp_mse`, since high values can indicate low quality! 
+Sort `deepmriprep_outputs.csv` by `affine_loss` and `warp_mse`, since high values can indicate low quality! 
 
 ## Tutorial 🧑‍🏫
 In short, deepmriprep (consisting of only ~500 lines of code) internally calls the `.run` method of the `Preprocess` class, which sequentially calls the methods `.run_bet` to `.run_atlas_register` (see [deepmriprep/preprocess.py](https://github.com/wwu-mmll/deepmriprep/blob/main/deepmriprep/preprocess.py#L132)).
