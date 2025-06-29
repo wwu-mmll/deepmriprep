@@ -77,7 +77,7 @@ class NoGMSegmentation:
     def __init__(self, no_gpu=False, model_path=None, shape=(336, 384, 336),
                  patch_shape=(128, 288, 256), sigma=30, bounds=((56, 28, 0), (152, 28, 0))):
         self.device = torch.device('cpu' if no_gpu else DEVICE)
-        model_path = f'{DATA_PATH}/models/segmentation_nogm_model.pt' or model_path
+        model_path = f'{DATA_PATH}/models/segmentation_nogm_model.pt' if model_path is None else model_path
         self.model = load_model(model_path, no_gpu)
         self.patch_slices = get_patch_slices(bounds, patch_shape)
         self.patch_weights = get_patch_weights(self.patch_slices, shape, patch_shape, sigma * torch.ones(3))
