@@ -18,7 +18,7 @@ python = '^3.9'
 torch = '>=1.11.0'
 deepbet = '>=1.0.2'
 torchreg = '>=0.1.3'
-spline-resize = '>=0.1.0'
+spline-resize = '>=0.1.1'
 requests = '*'
 
 [tool.poetry.dev-dependencies]
