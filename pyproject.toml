@@ -1,6 +1,6 @@
 [tool.poetry]
 name = 'deepmriprep'
-version = '0.1.0'
+version = '0.2.0'
 description = 'Neural network-based preprocessing of MRI data: Prepping brain images in seconds 🔥'
 authors = ['codingfisch <l_fisc17@wwu.de>']
 license = 'MIT'
