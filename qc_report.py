@@ -46,6 +46,8 @@ args = parser.parse_args()
 df = pd.read_csv(args.csv_path)
 out_dir, num_reports, columns  = args.output_dir, args.num_reports, args.columns
 nii_outputs = [o for o in columns if o in OUTPUTS['all'] and o not in OUTPUTS['csv']]
+for c in columns:
+    assert c in df.columns, f'Column {c} not in columns of CSV: {df.columns}'
 for arg in ['csv_path', 'output_dir', 'num_reports', 'columns']: delattr(args, arg)
 if 'affine_loss_value' in df.columns or 'warp_mse_value' in df.columns:
     df = df.sort_values('warp_mse_value' if 'warp_mse_value' in df.columns else 'affine_loss_value', ascending=False)
