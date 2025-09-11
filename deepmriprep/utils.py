@@ -5,6 +5,10 @@ import requests
 import numpy as np
 import nibabel as nib
 from pathlib import Path
+import importlib.metadata
+from json import dump, load
+try: VERSION = importlib.metadata.version('deepmriprep')
+except: VERSION = '0.0.0'
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 DATA_PATH = f'{Path(__file__).parent.resolve()}/data'
 MODEL_FILES = (['brain_extraction_bbox_model.pt', 'brain_extraction_model.pt', 'segmentation_nogm_model.pt'] +
@@ -39,6 +43,22 @@ def find_bids_t1w_files(bids_dir, liberal=False):
         filepaths += glob.glob(f'{bids_dir}/{pattern}')
     filepaths = [fp for fp in filepaths if not '/derivatives/' in fp]
     return sorted(filepaths)
+
+
+def save_dataset_description(bids_dir):
+    json_path = f'{bids_dir}/dataset_description.json'
+    assert Path(json_path).is_file(), f'{json_path} not found'
+    with open(json_path, 'r') as file:
+       data_description = load(file)
+    derivatives_description = {'Name': 'deepmriprep Outputs',
+                               'BIDSVersion': data_description.get('BIDSVersion', '0.0.0'),
+                               'DatasetType': 'derivative',
+                               'GeneratedBy': [{'Name': 'deepmriprep', 'Version': VERSION}],
+                               'SourceDatasets': [{'DOI': data_description.get('DOI', None),
+                                                   'URL': data_description.get('URL', None),
+                                                   'Version': data_description.get('Version', '0.0.0'),}],}
+    with open(f'{bids_dir}/derivatives/deepmriprep-v{VERSION}/dataset_description.json', 'w') as file:
+        dump(derivatives_description, file, indent=4)
 
 
 def download_missing_models(api_url='https://api.github.com/repos/wwu-mmll/deepmriprep/contents'):

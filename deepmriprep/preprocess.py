@@ -16,8 +16,8 @@ from .segment import BrainSegmentation, NoGMSegmentation
 from .register import WarpRegistration, MSEAndDice
 from .smooth import Smoothing
 from .atlas import ATLASES, get_volumes, shape_from_to, AtlasRegistration
-from .utils import (DEVICE, DATA_PATH, seed_all, nifti_volume, nifti_to_tensor,
-                    find_bids_t1w_files, download_missing_models)
+from .utils import (VERSION, DEVICE, DATA_PATH, seed_all, nifti_volume, nifti_to_tensor,
+                    find_bids_t1w_files, download_missing_models, save_dataset_description)
 AFFINE_TEMPLATE = nib.load(f'{DATA_PATH}/templates/Template_05mm_bet.nii.gz')
 WARP_TEMPLATE = nib.load(f'{DATA_PATH}/templates/Template_4_GS.nii.gz')
 BET_MODEL_PATHS = {'model_path': f'{DATA_PATH}/models/brain_extraction_model.pt',
@@ -61,7 +61,7 @@ DIR_FORMATS = ['sub', 'mod', 'cat', 'flat']
 
 def run_preprocess(input_paths=None, bids_dir=None, output_paths=None, output_dir=None, outputs='vbm', dir_format='sub',
                     no_gpu=False, progress_bar_func=None, skip_broken=True, skip_unprocessed=True, **kwargs):
-    table_path = output_dir if bids_dir is None else f'{bids_dir}/derivatives/deepmriprep'
+    table_path = output_dir if bids_dir is None else f'{bids_dir}/derivatives/deepmriprep-v{VERSION}'
     table_path = str(Path.cwd()) if table_path is None else table_path
     table_path += '/deepmriprep_outputs.csv'
     df = get_path_dataframe(input_paths, bids_dir, output_paths, output_dir, outputs, dir_format)
@@ -82,6 +82,7 @@ def run_preprocess(input_paths=None, bids_dir=None, output_paths=None, output_di
             if table.shape[1] > df.shape[1] and output is not None:
                 table.loc[in_path, value_columns] = [output[c[:-6]].values.item() for c in table.columns[df.shape[1]:]]
             table.to_csv(table_path)
+    if bids_dir is not None: save_dataset_description(bids_dir)
     return table
 
 
@@ -355,10 +356,11 @@ def get_output_paths(filepath, output_dir, outputs=None, dir_format='sub'):
 
 def create_bids_output_paths(input_paths, bids_dir, outputs):
     output_paths = []
+    if VERSION == '0.0.0': warnings.warn('No deepmriprep installation found, defaulting to version 0.0.0', Warning)
     for in_path in input_paths:
-        filename = str(Path(in_path).name).split('.')[0]
-        output_dir = str(Path(in_path).parent).replace(bids_dir, f'{bids_dir}/derivatives/deepmriprep')
-        output_dict = {o: f'{output_dir}/mri/{o}{filename}.nii.gz' for o in outputs}
-        output_dict.update({o: f'{output_dir}/label/{o}{filename}.csv' for o in OUTPUTS['csv'] if o in outputs})
+        filename = str(Path(in_path).name).split('.')[0].split('_')[0]
+        output_dir = str(Path(in_path).parent).replace(bids_dir, f'{bids_dir}/derivatives/deepmriprep-v{VERSION}')
+        output_dict = {o: f'{output_dir}/{filename}_{o}.nii.gz' for o in outputs}
+        output_dict.update({o: f'{output_dir}/{filename}_{o}.csv' for o in OUTPUTS['csv'] if o in outputs})
         output_paths.append(output_dict)
     return output_paths
