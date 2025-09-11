@@ -88,6 +88,7 @@ The PNGs/GIFs show the percentiles of `affine_loss_value` and `warp_mse_value` (
 
 Here are two example PNGs indicating "normal" (left) and faulty data (right, missing frontal parts)
 
+<img width="1497" height="450" alt="qc_small" src="https://github.com/user-attachments/assets/b7a22dde-68e0-46c1-89af-befb000e3dc5" />
 
 Additionally, install the [NiftiView-App](https://github.com/codingfisch/niftiview-app) for quick visual inspection!
 
