@@ -77,13 +77,19 @@ If `output_dir` is set, `dir_format` set to
 - `'flat'` results in e.g. `'outpath/tivsub-1.csv'` and `'outpath/p0sub_1.nii.gz'`
 
 ## Quality Control 🔍
-Use [NiftiView](https://github.com/codingfisch/niftiview-app) to quickly quality check outputs via patterns like
+Install [NiftiView](https://github.com/codingfisch/niftiview) to create PNGs or GIFs of `deepmriprep_outputs.csv` via
 ```bash
-/path/to/bids/derivatives/deepmriprep/sub*/anat/mri/p0sub*.ni*
+python qc_report.py -csv /path/to/deepmriprep_outputs.csv --gif -c p0 mwp1 -n 4
 ```
-in the "Image files" field (all `p0` files in this example).
+for visual inspection (the above commands creates GIFs of the `'p0'` and `'mwp1'` files of the 4 inputs with the highest `warp_mse_value`).
 
-Sort `deepmriprep_outputs.csv` by `affine_loss` and `warp_mse`, since high values can indicate low quality! 
+The PNGs/GIFs show the percentiles of `affine_loss_value` and `warp_mse_value` (compared to >10,000 MRIs from [OpenNeuro](https://openneuro.org/)). 
+**High percentile values should be visually inspected to avoid faulty data in further analysis!**
+
+Here are two example PNGs indicating "normal" (left) and faulty data (right, missing frontal parts)
+
+
+Additionally, install the [NiftiView-App](https://github.com/codingfisch/niftiview-app) for quick visual inspection!
 
 ## Tutorial 🧑‍🏫
 In short, deepmriprep (consisting of only ~500 lines of code) internally calls the `.run` method of the `Preprocess` class, which sequentially calls the methods `.run_bet` to `.run_atlas_register` (see [deepmriprep/preprocess.py](https://github.com/wwu-mmll/deepmriprep/blob/main/deepmriprep/preprocess.py#L132)).
