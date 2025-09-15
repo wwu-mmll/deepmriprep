@@ -47,7 +47,7 @@ IO = {'bet': {'input': ('t1',),
                           'v_xy', 'v_yx')},  # 'y_', 'iy_'
       'smooth': {'input': ('mwp1', 'mwp2'),
                  'output': ('s6mwp1', 's6mwp2', 's8mwp1', 's8mwp2')},
-      'atlas': {'input': ('t1', 'affine', 'warp_yx', 'p1_large', 'p2_large', 'p3_large'),
+      'atlas': {'input': ('t1', 'affine', 'warp_yx', 'p1_large', 'p2_large', 'p3_large', 'wj_affine'),
                 'output': ATLASES + ATLASES_AFFINE + ATLAS_VOLUMES}}
 OUTPUTS = {'all': sum([list(v['output']) for v in IO.values()], []),
            'vbm': ['mwp1', 'mwp2', 's6mwp1', 's8mwp1', 'tiv', 'affine_loss', 'warp_mse'],
@@ -270,11 +270,12 @@ class Preprocess:
             )
         return output
 
-    def run_atlas_register(self, t1, affine, warp_yx, p1_large, p2_large, p3_large, atlas_list):
+    def run_atlas_register(self, t1, affine, warp_yx, p1_large, p2_large, p3_large, wj_affine, atlas_list):
         voxel_vol = np.prod(p1_large.affine[np.diag_indices(3)])
         p1_large, p2_large, p3_large = [nifti_to_tensor(p).to(self.device) for p in [p1_large, p2_large, p3_large]]
         inv_affine = torch.linalg.inv(torch.from_numpy(affine.values).float().to(self.device))
-        grid = F.affine_grid(inv_affine[None, :3], [1, 3, *t1.shape[:3]], align_corners=INTERP_KWARGS['align_corners'])
+        t1_shape = nib.as_closest_canonical(t1).shape
+        grid = F.affine_grid(inv_affine[None, :3], [1, 3, *t1_shape[:3]], align_corners=INTERP_KWARGS['align_corners'])
         warp_yx = nib.as_closest_canonical(warp_yx)
         yx = nifti_to_tensor(warp_yx)[None].to(self.device)
         atlases, warps = {}, {}
@@ -286,13 +287,13 @@ class Preprocess:
             if shape not in warps:
                 scaled_yx = F.interpolate(yx.permute(0, 4, 1, 2, 3), shape, mode='trilinear', align_corners=False)
                 warps.update({shape: scaled_yx.permute(0, 2, 3, 4, 1)})
-            atlas = self.atlas_register(affine, warps[shape], atlas, t1.shape)
+            atlas = self.atlas_register(affine, warps[shape], atlas, t1_shape)
             if f'{atl}_affine' in atlas_list:
                 atlases.update({atl + '_affine': atlas})
             atlas = nifti_to_tensor(atlas).to(self.device)
             if f'{atl}_volumes' in atlas_list:
                 rois = pd.read_csv(f'{DATA_PATH}/templates/{atl}.csv', sep=';')[['ROIid', 'ROIname']]
-                volumes = voxel_vol * get_volumes(atlas, p1_large, p2_large, p3_large)
+                volumes = wj_affine.item() * voxel_vol * get_volumes(atlas, p1_large, p2_large, p3_large)
                 volumes = pd.DataFrame(volumes, columns=['gmv_mm3', 'wmv_mm3', 'csfv_mm3', 'region_mm3'])
                 atlases.update({atl + '_volumes': pd.concat([rois, volumes], axis=1)})
             if atl in atlas_list:
