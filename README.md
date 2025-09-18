@@ -79,9 +79,9 @@ If `output_dir` is set, `dir_format` set to
 ## Quality Control 🔍
 Install [NiftiView](https://github.com/codingfisch/niftiview) to create PNGs or GIFs of `deepmriprep_outputs.csv` via
 ```bash
-python qc_report.py -csv /path/to/deepmriprep_outputs.csv --gif -c p0 mwp1 -n 4
+python qc_report.py -csv /path/to/deepmriprep_outputs.csv --gif -c mwp1 mwp2 -n 4
 ```
-for visual inspection (the above commands creates GIFs of the `'p0'` and `'mwp1'` files of the 4 inputs with the highest `warp_mse_value`).
+for visual inspection (the above commands creates GIFs of the `'mwp1'` and `'mwp2'` files of the 4 inputs with the highest `warp_mse_value`).
 
 The PNGs/GIFs show the percentiles of `affine_loss_value` and `warp_mse_value` (compared to >10,000 MRIs from [OpenNeuro](https://openneuro.org/)). 
 **High percentile values should be visually inspected to avoid faulty data in further analysis!**
