@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/845071000.svg)](https://doi.org/10.5281/zenodo.17748963)
+
 **Disclaimer**: deepmriprep is not related to fMRIPrep or sMRIPrep and is not part of the NiPreps framework
  
 ![logo](https://github.com/user-attachments/assets/bbd01efd-ba71-4504-a085-909b28366de4)
